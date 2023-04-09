@@ -68,7 +68,7 @@ def main():
         simulate_mouse_click(hwnd)
         minimize_window(hwnd)
         return_cursor(x,y)
-        time.sleep(28*60) #Wait for 5 mintes before repeating
+        time.sleep(28*60) #Wait for 28 mintes before repeating
         
         
 if __name__ == "__main__":
