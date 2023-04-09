@@ -34,12 +34,7 @@ def set_window_pos(hwnd):
     win32gui.BringWindowToTop(hwnd)
     win32gui.SetWindowPos(hwnd, win32con.HWND_TOPMOST, 0, 0, 0, 0, 
                           win32con.SWP_NOMOVE | win32con.SWP_NOSIZE | win32con.SWP_SHOWWINDOW)
-    # win32gui.SetFocus(hwnd)
     
-    # win32gui.SetForegroundWindow(hwnd)    
-    
-
-
 #Simulate mouse click on the window
 def simulate_mouse_click(hwnd):
     x, y = win32gui.ClientToScreen(hwnd, (0,0))
@@ -52,25 +47,28 @@ def simulate_mouse_movement(hwnd):
     win32api.SetCursorPos((x+30, y+30))    
     print("done")
     
+#Minimize remote window     
 def minimize_window(hwnd):
     win32gui.ShowWindow(hwnd, win32con.SW_MINIMIZE)
     
-    
+#Move cursor back    
 def return_cursor(x,y):
     win32api.SetCursorPos((x,y))
+    
+    
 #Main loop
 def main():
     hwnd = get_window_handle()   
     
-    #while True:
-    x, y = win32gui.GetCursorPos()
+    while True:
+        x, y = win32gui.GetCursorPos()
         
-    set_window_pos(hwnd)
-    simulate_mouse_movement(hwnd)
-    simulate_mouse_click(hwnd)
-    minimize_window(hwnd)
-    return_cursor(x,y)
-     #time.sleep(28*60) #Wait for 5 mintes before repeating
+        set_window_pos(hwnd)
+        simulate_mouse_movement(hwnd)
+        simulate_mouse_click(hwnd)
+        minimize_window(hwnd)
+        return_cursor(x,y)
+        time.sleep(28*60) #Wait for 5 mintes before repeating
         
         
 if __name__ == "__main__":
