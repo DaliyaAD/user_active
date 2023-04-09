@@ -25,7 +25,7 @@ def get_window_handle():
     return hwnd
 
 #Bring the window to the foreground
-def set_foreground_window(hwnd):
+def set_window_pos(hwnd):
     if win32gui.IsIconic(hwnd):
         win32gui.ShowWindow(hwnd, win32con.SW_RESTORE)
         
@@ -52,17 +52,25 @@ def simulate_mouse_movement(hwnd):
     win32api.SetCursorPos((x+30, y+30))    
     print("done")
     
-
+def minimize_window(hwnd):
+    win32gui.ShowWindow(hwnd, win32con.SW_MINIMIZE)
+    
+    
+def return_cursor(x,y):
+    win32api.SetCursorPos((x,y))
 #Main loop
 def main():
-    hwnd = get_window_handle()    
+    hwnd = get_window_handle()   
+    
     #while True:
-       
-    set_foreground_window(hwnd)
-    #simulate_mouse_click(hwnd)
+    x, y = win32gui.GetCursorPos()
+        
+    set_window_pos(hwnd)
     simulate_mouse_movement(hwnd)
     simulate_mouse_click(hwnd)
-    #time.sleep(28*60) #Wait for 5 mintes before repeating
+    minimize_window(hwnd)
+    return_cursor(x,y)
+     #time.sleep(28*60) #Wait for 5 mintes before repeating
         
         
 if __name__ == "__main__":
