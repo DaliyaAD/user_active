@@ -1,5 +1,12 @@
 # -*- coding: utf-8 -*-
 """
+Created on Thu Apr 13 17:10:52 2023
+
+@author: daliya
+"""
+
+# -*- coding: utf-8 -*-
+"""
 Created on Sun Apr  9 14:06:36 2023
 
 @author: daliya
@@ -11,10 +18,9 @@ import win32con
 import win32process
 import time
 import winerror
+from pywinauto import Desktop, Application
 #Change these values to match the title of the remote desktop window
-number1 = input ("Enter X number tcremote(X): ")
-number2 = input("Enter number XXX REE-XXX: ")
-WINDOW_TITLE = f"tcremote ({number1}) - REEE-{number2} - Remote Desktop Connection"
+WINDOW_TITLE = "REEE-002 - Remote Desktop Connection"
 WINDOW_CLASS = "TscShellContainerClass"
 
 #Get the window handle for the remote desktop window
@@ -44,7 +50,7 @@ def simulate_mouse_click(hwnd):
 #Simulate mouse movement on the window
 def simulate_mouse_movement(hwnd):
     x, y = win32gui.ClientToScreen(hwnd, (0,0))
-    win32api.SetCursorPos((x+30, y+30))    
+    win32api.SetCursorPos((x+130, y+260))    
     print("done")
     
 #Minimize remote window     
@@ -65,7 +71,11 @@ def main():
         
         set_window_pos(hwnd)
         simulate_mouse_movement(hwnd)
+        rdp_window = Application().connect(title=WINDOW_TITLE).window(title=WINDOW_TITLE)
+        rdp_window.set_focus()
+       
         simulate_mouse_click(hwnd)
+       
         minimize_window(hwnd)
         return_cursor(x,y)
         time.sleep(28*60) #Wait for 28 mintes before repeating
